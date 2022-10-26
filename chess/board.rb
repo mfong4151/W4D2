@@ -5,7 +5,7 @@ include Slideable
 include Stepable
 
   def self.generate_pieces(board)
-    black =
+    black = 'black'
     
     defaults = [0,1,6,7]
     pieces = [:R,:N, :B, :Q, :K,:B, :N, :R]
@@ -20,9 +20,31 @@ include Stepable
       end
     end
 
-    (0...@board.length).each do |i|
-      (0...@board.length).each do |j| 
+    (0...board.length).each do |i|
+      (0...board[0].length).each do |j| 
+          if board[i, j] == :R
+            board[i, j] = Rook.new(black, board, [i, j], :R)
 
+          elsif board[i, j] == :N
+            board[i, j] = Knight.new(black, board, [i, j], :N)
+
+          elsif board[i,j] == :B
+            board[i,j] = Bishop.new(black, board, [i, j], :B)
+          
+          elsif board[i,j] == :Q
+            board[i,j] = Queen.new(black, board, [i, j], :Q)
+
+          elsif board[i,j] == :K
+            board[i,j] = Queen.new(black, board, [i, j], :Q)
+          
+          elsif board[i, j] == '_'
+
+            board[i, j]= NullPiece.new(black, board, [i,j], '_')
+
+          else 
+            board[i, j] = Pawn.new(black, board, [i, j], '_')
+          end
+          end
       end
     end
 
